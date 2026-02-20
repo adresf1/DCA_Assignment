@@ -1,4 +1,4 @@
-﻿using ViaPadel.Core.Tools.OperationResult;
+﻿namespace ViaPadel.Core.Tools.OperationResult;
 
 public class Result
 {
