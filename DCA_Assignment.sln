@@ -1,12 +1,36 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{FEC526BC-6FF1-4478-8E31-29E4760F40E0}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "core", "core", "{24D47332-0865-4B6F-A839-835736F62516}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tools", "tools", "{AA97796C-D52B-4D67-A36C-A9EC3EC69706}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ViaPadel.Core.Tools.OperationResult", "ViaPadel.Core.Tools.OperationResult\ViaPadel.Core.Tools.OperationResult.csproj", "{CFB4DE39-D0F4-45CB-827A-DD0310996EA6}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{C09D29BC-6659-4025-BDAB-E702B0951458}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests", "UnitTests\UnitTests.csproj", "{DF3F9261-2141-46AA-8764-FE9A0BD3044C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
+		{24D47332-0865-4B6F-A839-835736F62516} = {FEC526BC-6FF1-4478-8E31-29E4760F40E0}
+		{AA97796C-D52B-4D67-A36C-A9EC3EC69706} = {24D47332-0865-4B6F-A839-835736F62516}
+		{CFB4DE39-D0F4-45CB-827A-DD0310996EA6} = {AA97796C-D52B-4D67-A36C-A9EC3EC69706}
+		{DF3F9261-2141-46AA-8764-FE9A0BD3044C} = {C09D29BC-6659-4025-BDAB-E702B0951458}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CFB4DE39-D0F4-45CB-827A-DD0310996EA6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CFB4DE39-D0F4-45CB-827A-DD0310996EA6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CFB4DE39-D0F4-45CB-827A-DD0310996EA6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CFB4DE39-D0F4-45CB-827A-DD0310996EA6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DF3F9261-2141-46AA-8764-FE9A0BD3044C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DF3F9261-2141-46AA-8764-FE9A0BD3044C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DF3F9261-2141-46AA-8764-FE9A0BD3044C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DF3F9261-2141-46AA-8764-FE9A0BD3044C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
