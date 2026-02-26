@@ -1,6 +1,6 @@
 ﻿namespace Domain.Common;
 
-//playerId
+// Strong-typed IDs
 public record PlayerId(Guid Value);
 public record BookingId(Guid Value);
 public record CourtId(Guid Value);
@@ -9,10 +9,10 @@ public record DailyScheduleId(Guid Value);
 
 public record TimeSlot(DateTime StartTime, DateTime EndTime)
 {
-    // Forretningsregel: Max 3 timer
+    // Business rule: Max 3 hours
     public bool IsValid => EndTime > StartTime && (EndTime - StartTime).TotalHours <= 3;
 
-    // Bruges til at tjekke om to reservationer overlapper
+    // Used to check if two reservations overlap
     public bool Overlaps(TimeSlot other) => 
         StartTime < other.EndTime && other.StartTime < EndTime;
 }

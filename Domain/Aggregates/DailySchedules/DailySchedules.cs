@@ -106,7 +106,7 @@ public class DailySchedule
         return Result.Success();
     }
 
-    //validate courtName 
+    //validate courtName
     public Result ValidateCourtName(string courtName)
     {
         if (courtName.Length < 2 || courtName.Length > 3)

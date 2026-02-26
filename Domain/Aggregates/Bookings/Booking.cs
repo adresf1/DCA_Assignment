@@ -22,7 +22,7 @@ public class Booking
         Status = BookingStatus.Active;
     }
     
-    //create booking 
+    //create booking
     public static Result<Booking> CreateBooking(BookingId id, TimeSlot slot, Player bookedBy, CourtId courtId)
     {
         if (!slot.IsValid)
