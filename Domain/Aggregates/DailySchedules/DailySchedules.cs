@@ -46,6 +46,9 @@ public class DailySchedule
         return Result.Success();
     }
 
+    
+    
+    
     public Result UpdateTimeInterval(TimeSpan startTime, TimeSpan endTime)
     {
         // F5 - Schedule is active
