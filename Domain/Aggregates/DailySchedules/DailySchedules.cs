@@ -1,4 +1,5 @@
-﻿using Domain.Common;
+﻿using Domain.Aggregates.Bookings;
+using Domain.Common;
 using ViaPadel.Core.Tools.OperationResult;
 
 namespace Domain.Aggregates.DailySchedules;
@@ -13,7 +14,7 @@ public class DailySchedule
 
     private readonly List<Court> _courts = new();
     private readonly List<Queue> _queue = new();
-    private readonly List<BookingId> _bookings = new();
+    private readonly List<Booking> _bookings = new();
 
     // Use Case 1: Manager creates daily schedule
     // - ID is auto-generated
@@ -135,8 +136,7 @@ public class DailySchedule
         _queue.Add(new Queue(playerId, new PositionId(Guid.NewGuid()), DateTime.Now));
     }
 
-    public void RegisterBooking(BookingId bookingId) => _bookings.Add(bookingId);
-
+    
     public Result Activate()
     {
         if (Status == ScheduleStatus.Deleted)

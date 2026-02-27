@@ -22,21 +22,7 @@ public class Booking
         Status = BookingStatus.Active;
     }
     
-    //create booking
-    public static Result<Booking> CreateBooking(BookingId id, TimeSlot slot, Player bookedBy, CourtId courtId)
-    {
-        if (!slot.IsValid)
-            return Result<Booking>.Failure(BookingError.InvalidTimeSlot);
-        
-        if (bookedBy.IsBlocked)
-            return Result<Booking>.Failure(PlayerError.PlayerBlocked);
-        
-        if (bookedBy.IsInQuarantine())
-            return Result<Booking>.Failure(PlayerError.PlayerInQuarantine);
-        
-        var booking = new Booking(id, slot, bookedBy, courtId);
-        return Result<Booking>.Success(booking);
-    }
+  
     
     public Result CancelBooking()
     {

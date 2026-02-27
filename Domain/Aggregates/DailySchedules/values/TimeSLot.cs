@@ -1,11 +1,6 @@
 ﻿namespace Domain.Common;
 
 // Strong-typed IDs
-public record PlayerId(Guid Value);
-public record BookingId(Guid Value);
-public record CourtId(Guid Value);
-public record PositionId(Guid Value);
-public record DailyScheduleId(Guid Value);
 
 public record TimeSlot(DateTime StartTime, DateTime EndTime)
 {
