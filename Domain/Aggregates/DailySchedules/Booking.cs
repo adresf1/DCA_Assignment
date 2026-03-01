@@ -9,11 +9,11 @@ public class Booking
     public BookingId Id { get; private set; }
     public TimeSlot Slot { get; private set; }
     public BookingStatus Status { get; private set; }
-    public Player BookedBy { get; private set; }
+    public PlayerId BookedBy { get; private set; }
     public CourtId CourtId { get; private set; }
-    private readonly List<Player> _players = new();
+    private readonly List<PlayerId> _players = new();
     
-    private Booking(BookingId id, TimeSlot slot, Player bookedBy, CourtId courtId)
+    private Booking(BookingId id, TimeSlot slot, PlayerId bookedBy, CourtId courtId)
     {
         Id = id;
         Slot = slot;
@@ -33,7 +33,7 @@ public class Booking
         return Result.Success();
     }
     
-    public Result AddPlayersToCourt(List<Player> players)
+    public Result AddPlayersToCourt(List<PlayerId> players)
     {
         if (Status != BookingStatus.Active)
             return Result.Failure(BookingError.CannotAddPlayersToInactiveBooking);
@@ -51,7 +51,7 @@ public class Booking
         return Result.Success();
     }
     
-    public Result RemovePlayerFromCourt(Player player)
+    public Result RemovePlayerFromCourt(PlayerId player)
     {
         if (Status != BookingStatus.Active)
             return Result.Failure(BookingError.CannotRemovePlayersFromInactiveBooking);
