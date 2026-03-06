@@ -144,7 +144,9 @@ public class DailySchedule
 
         if (Status == ScheduleStatus.Active)
             return Result.Failure(DailyScheduleError.DailyScheduleAlreadyActive);
-
+        if (Date < DateTime.Today)
+            return Result.Failure(DailyScheduleError.DateCannotBeInPast);
+        
         if (!_courts.Any())
             return Result.Failure(DailyScheduleError.CannotActivateWithoutCourts);
 
