@@ -21,49 +21,10 @@ public class Booking
         CourtId = courtId;
         Status = BookingStatus.Active;
     }
-    
-    public Result CancelBooking()
-    {
-        if (Status == BookingStatus.Cancelled)
-            return Result.Failure(BookingError.BookingAlreadyCancelled);
-        
-        Status = BookingStatus.Cancelled;
-        return Result.Success();
-    }
-    
-    public Result AddPlayersToCourt(List<PlayerId> players)
-    {
-        if (Status != BookingStatus.Active)
-            return Result.Failure(BookingError.CannotAddPlayersToInactiveBooking);
-        
-        _players.AddRange(players);
-        return Result.Success();
-    }
-    
-    public Result MarkNoShow()
-    {
-        if (Status != BookingStatus.Active)
-            return Result.Failure(BookingError.CannotMarkInactiveBookingAsNoShow);
-        
-        Status = BookingStatus.NoShow;
-        return Result.Success();
-    }
-    
-    public Result RemovePlayerFromCourt(PlayerId player)
-    {
-        if (Status != BookingStatus.Active)
-            return Result.Failure(BookingError.CannotRemovePlayersFromInactiveBooking);
-        
-        if (!_players.Contains(player))
-            return Result.Failure(BookingError.PlayerNotInBooking);
-        
-        _players.Remove(player);
-        return Result.Success();
-    }
 
-//requirment 6 - create booking:
+    // CREATE BOOKING - REQUIREMENT
 
- public static Result<Booking> Create(
+    public static Result<Booking> Create(
         BookingId bookingId,
         TimeSlot slot,
         PlayerId bookedBy,
@@ -71,57 +32,60 @@ public class Booking
         DailySchedule schedule,
         List<Booking> existingBookingsOnCourt)
     {
-        // F1, F2: Schedule must be active
         if (schedule.Status != ScheduleStatus.Active)
             return Result.Failure(BookingError.ScheduleNotActive);
 
-        // F5-F8: Check time within schedule
         var timeValidation = ValidateTimeWithinSchedule(slot, schedule);
         if (!timeValidation.IsSuccess)
             return timeValidation;
 
-        // F9: Check time format (whole or half hour)
         var formatValidation = ValidateTimeFormat(slot);
         if (!formatValidation.IsSuccess)
             return formatValidation;
 
-        // F10: Check minimum 1 hour
         var minDurationValidation = ValidateDuration(slot, minHours: 1);
         if (!minDurationValidation.IsSuccess)
             return minDurationValidation;
 
-        // F12: Check maximum 3 hours
         var maxDurationValidation = ValidateDuration(slot, maxHours: 3);
         if (!maxDurationValidation.IsSuccess)
             return maxDurationValidation;
 
-        // F11: Check no overlap with existing bookings
         var overlapValidation = ValidateNoOverlap(slot, existingBookingsOnCourt);
         if (!overlapValidation.IsSuccess)
             return overlapValidation;
 
-        // F18: Check no small gaps
         var gapValidation = ValidateNoSmallGaps(slot, existingBookingsOnCourt, schedule);
         if (!gapValidation.IsSuccess)
             return gapValidation;
 
-        // F19: Check not in past
         if (slot.StartTime < DateTime.UtcNow)
             return Result.Failure(BookingError.BookingCannotStartInPast);
 
-        // All validation passed - create booking
         var booking = new Booking(bookingId, slot, bookedBy, courtId);
         return Result.Success(booking);
     }
 
-    public Result CancelBooking()
+
+    // CANCEL BOOKING - REQUIREMENT
+
+
+    public Result CancelBooking(DateTime cancellationTime)
     {
         if (Status == BookingStatus.Cancelled)
             return Result.Failure(BookingError.BookingAlreadyCancelled);
 
+        if (Slot.StartTime < DateTime.UtcNow)
+            return Result.Failure(BookingError.BookingInPast);
+
+        var timeUntilStart = Slot.StartTime - cancellationTime;
+        if (timeUntilStart <= TimeSpan.FromHours(1))
+            return Result.Failure(BookingError.CancellationTooLate);
+
         Status = BookingStatus.Cancelled;
         return Result.Success();
     }
+
 
     public Result AddPlayersToCourt(List<PlayerId> players)
     {
@@ -241,9 +205,4 @@ public class Booking
 
         return Result.Success();
     }
-}
-    
-
-
-
 }
